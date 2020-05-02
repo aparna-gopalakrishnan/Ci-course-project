@@ -1,9 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite">
-  <test thread-count="5" name="Test">
-    <classes>
-      <class name="Training.FirstSeleniumJavaTest"/>
-    </classes>
-  </test> <!-- Test -->
-</suite> <!-- Suite -->
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">	
+
+<suite thread-count="2" verbose="1" name="Parallel Test Suite" annotations="JDK" parallel="tests">
+         
+  <test name="OpenCartTest">
+	 <classes>
+	   <class name="suite1.OpenCartTests"/>
+	 </classes>
+   </test>
+   
+  <test name="SaceDemoTest">
+     <classes>
+       <class name="suite2.SauceDemoTests"/>
+     </classes>
+   </test>
+</suite>
