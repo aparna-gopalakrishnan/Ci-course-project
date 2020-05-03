@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.AssertJUnit;
@@ -18,6 +19,9 @@ public class SauceDemoTests {
 	private WebDriver driver;
 	private String url = "https://www.saucedemo.com/";
 	private String header = "Swag Labs";
+	
+	//For demonstrating parameterized builds
+	String browser = System.getProperty("browser");
 
 	
     public void waitForPageLoaded() {
@@ -62,9 +66,24 @@ public class SauceDemoTests {
 	//Before test
 	@BeforeTest
 	public void beforeTest() {
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-	}
+
+		//Instantiate browser based on user input
+
+		if(browser.equalsIgnoreCase("Chrome")) {
+			driver = new ChromeDriver();
+			driver.manage().window().maximize();
+		}
+		else if(browser.equalsIgnoreCase("firefox")) {
+			driver = new FirefoxDriver();
+			driver.manage().window().maximize();
+		}
+		else {
+			System.out.println("Invalid option Selected hence defaulting to Chrome");
+			browser = "Chrome";
+			driver = new ChromeDriver();
+			driver.manage().window().maximize();
+		}
+	}	
 	//hooks - to tear down after test is executed
 	@AfterTest
 	public void afterTest() {
