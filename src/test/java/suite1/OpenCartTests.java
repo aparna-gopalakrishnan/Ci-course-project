@@ -64,7 +64,7 @@ public class OpenCartTests {
 
 		//Instantiate browser based on user input
 
-		if(browser != "" || browser != null) {
+		if(browser != "" && browser != null) {
 			if(browser.equalsIgnoreCase("Chrome")) {
 				driver = new ChromeDriver();
 				driver.manage().window().maximize();
