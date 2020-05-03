@@ -19,27 +19,27 @@ public class SauceDemoTests {
 	private WebDriver driver;
 	private String url = "https://www.saucedemo.com/";
 	private String header = "Swag Labs";
-	
+
 	//For demonstrating parameterized builds
 	String browser = System.getProperty("browser");
 
-	
-    public void waitForPageLoaded() {
-        ExpectedCondition<Boolean> expectation = new
-                ExpectedCondition<Boolean>() {
-                    public Boolean apply(WebDriver driver) {
-                        return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
-                    }
-                };
-        try {
-            Thread.sleep(1000);
-            WebDriverWait wait = new WebDriverWait(driver, 30);
-            wait.until(expectation);
-        } catch (Throwable error) {
-            Assert.fail("Timeout waiting for Page Load Request to complete.");
-        }
-    }
-	
+
+	public void waitForPageLoaded() {
+		ExpectedCondition<Boolean> expectation = new
+				ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver driver) {
+				return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
+			}
+		};
+		try {
+			Thread.sleep(1000);
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(expectation);
+		} catch (Throwable error) {
+			Assert.fail("Timeout waiting for Page Load Request to complete.");
+		}
+	}
+
 	//Test to launch browser with url
 	@Test(enabled = true, priority = 0)				
 	public void open() {
@@ -51,7 +51,7 @@ public class SauceDemoTests {
 		AssertJUnit.assertTrue(title.equals(header ));
 
 	}	
-	
+
 	//Login
 
 	@Test(enabled = true, priority = 1)
@@ -62,23 +62,30 @@ public class SauceDemoTests {
 		AssertJUnit.assertTrue(driver.findElement(By.className("product_label")).getText()
 				.equals("Products"));
 	}
-	
+
 	//Before test
 	@BeforeTest
 	public void beforeTest() {
 
 		//Instantiate browser based on user input
 
-		if(browser.equalsIgnoreCase("Chrome")) {
-			driver = new ChromeDriver();
-			driver.manage().window().maximize();
-		}
-		else if(browser.equalsIgnoreCase("firefox")) {
-			driver = new FirefoxDriver();
-			driver.manage().window().maximize();
+		if(browser != "" || browser != null) {
+			if(browser.equalsIgnoreCase("Chrome")) {
+				driver = new ChromeDriver();
+				driver.manage().window().maximize();
+			}
+			else if(browser.equalsIgnoreCase("firefox")) {
+				driver = new FirefoxDriver();
+				driver.manage().window().maximize();
+			}
+			else {
+				System.out.println("Invalid option Selected hence defaulting to Chrome");
+				browser = "Chrome";
+				driver = new ChromeDriver();
+				driver.manage().window().maximize();
+			}
 		}
 		else {
-			System.out.println("Invalid option Selected hence defaulting to Chrome");
 			browser = "Chrome";
 			driver = new ChromeDriver();
 			driver.manage().window().maximize();

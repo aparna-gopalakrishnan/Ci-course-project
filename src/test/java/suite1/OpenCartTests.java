@@ -64,16 +64,23 @@ public class OpenCartTests {
 
 		//Instantiate browser based on user input
 
-		if(browser.equalsIgnoreCase("Chrome")) {
-			driver = new ChromeDriver();
-			driver.manage().window().maximize();
-		}
-		else if(browser.equalsIgnoreCase("firefox")) {
-			driver = new FirefoxDriver();
-			driver.manage().window().maximize();
+		if(browser != "" || browser != null) {
+			if(browser.equalsIgnoreCase("Chrome")) {
+				driver = new ChromeDriver();
+				driver.manage().window().maximize();
+			}
+			else if(browser.equalsIgnoreCase("firefox")) {
+				driver = new FirefoxDriver();
+				driver.manage().window().maximize();
+			}
+			else {
+				System.out.println("Invalid option Selected hence defaulting to Chrome");
+				browser = "Chrome";
+				driver = new ChromeDriver();
+				driver.manage().window().maximize();
+			}
 		}
 		else {
-			System.out.println("Invalid option Selected hence defaulting to Chrome");
 			browser = "Chrome";
 			driver = new ChromeDriver();
 			driver.manage().window().maximize();
